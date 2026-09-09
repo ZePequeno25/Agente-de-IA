@@ -43,6 +43,8 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
+*.jsonl
 
 # Compressed files
 *.zip
@@ -67,4 +69,22 @@ Thumbs.db
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Model files (large binaries)
+models/
+*.gguf
+*.bin
+*.pt
+*.pth
+*.onnx
+*.safetensors
+
+# Security sensitive files
+*.pem
+*.key
+*.crt
+credentials.json
+service-account.json
+*_secret*
+*_private*
 ```
