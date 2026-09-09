@@ -1,0 +1,25 @@
+{
+  "system": {
+    "os": {
+      "name": "Linux",
+      "version": "#1 SMP Tue Sep 26 10:25:51 UTC 2023",
+      "release": "4.19.91-c8dfc93.al7.x86_64",
+      "machine": "x86_64"
+    },
+    "ram_gb": 2.05,
+    "gpu": [],
+    "cpu_cores": 2,
+    "python_version": "3.12.10",
+    "architecture": "x86_64"
+  },
+  "recommendations": {
+    "model": "qwen2_5_3b",
+    "quantization": "Q4_K_M",
+    "gpu_layers": 0,
+    "context_size": 2048,
+    "threads": 2,
+    "batch_size": 128,
+    "expected_tokens_s": "15-25",
+    "reason": "Hardware limitado (2.05GB RAM), usar modelo 3B"
+  }
+}
