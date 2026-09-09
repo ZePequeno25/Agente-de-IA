@@ -1,0 +1,169 @@
+{
+  "presets": {
+    "gpu_8gb_ram_16gb_qwen3_moe": {
+      "description": "Configuração para GPU com 8GB VRAM e 16GB RAM - Qwen3-30B-A3B (MoE)",
+      "model_name": "Qwen3-30B-A3B-Instruct",
+      "model_quantization": "Q4_K_M",
+      "gpu_layers": 40,
+      "ctx_size": 4096,
+      "batch_size": 1,
+      "threads": 8,
+      "threads_batch": 4,
+      "expected_tokens_per_second": "22-26",
+      "vram_usage_gb": 7,
+      "ram_usage_gb": 10,
+      "flash_attn": true,
+      "main_gpu": 0,
+      "tensor_split": null
+    },
+    "gpu_8gb_ram_16gb_dense": {
+      "description": "Configuração para GPU com 8GB VRAM e 16GB RAM - Qwen2.5/Qwen3 32B (Dense)",
+      "model_name": "Qwen2.5-32B-Instruct",
+      "model_quantization": "Q4_K_M",
+      "gpu_layers": 35,
+      "ctx_size": 4096,
+      "batch_size": 1,
+      "threads": 8,
+      "threads_batch": 4,
+      "expected_tokens_per_second": "21-24",
+      "vram_usage_gb": 7.5,
+      "ram_usage_gb": 12,
+      "flash_attn": true,
+      "main_gpu": 0,
+      "tensor_split": null
+    },
+    "gpu_10gb_ram_16gb_qwen3_moe": {
+      "description": "Configuração para GPU com 10GB VRAM e 16GB RAM - Qwen3-30B-A3B (MoE)",
+      "model_name": "Qwen3-30B-A3B-Instruct",
+      "model_quantization": "Q5_K_M",
+      "gpu_layers": 50,
+      "ctx_size": 4096,
+      "batch_size": 1,
+      "threads": 8,
+      "threads_batch": 4,
+      "expected_tokens_per_second": "24-28",
+      "vram_usage_gb": 8.5,
+      "ram_usage_gb": 9,
+      "flash_attn": true,
+      "main_gpu": 0,
+      "tensor_split": null
+    },
+    "gpu_10gb_ram_16gb_dense": {
+      "description": "Configuração para GPU com 10GB VRAM e 16GB RAM - Qwen2.5/Qwen3 32B (Dense)",
+      "model_name": "Qwen2.5-32B-Instruct",
+      "model_quantization": "Q5_K_M",
+      "gpu_layers": 45,
+      "ctx_size": 4096,
+      "batch_size": 1,
+      "threads": 8,
+      "threads_batch": 4,
+      "expected_tokens_per_second": "21-24",
+      "vram_usage_gb": 9,
+      "ram_usage_gb": 11,
+      "flash_attn": true,
+      "main_gpu": 0,
+      "tensor_split": null
+    },
+    "gpu_10gb_high_quality": {
+      "description": "Configuração para GPU com 10GB VRAM - Máxima qualidade",
+      "model_name": "Qwen2.5-32B-Instruct",
+      "model_quantization": "Q6_K",
+      "gpu_layers": 40,
+      "ctx_size": 4096,
+      "batch_size": 1,
+      "threads": 8,
+      "threads_batch": 4,
+      "expected_tokens_per_second": "20-23",
+      "vram_usage_gb": 9.5,
+      "ram_usage_gb": 10,
+      "flash_attn": true,
+      "main_gpu": 0,
+      "tensor_split": null
+    },
+    "cpu_only": {
+      "description": "Configuração apenas para CPU (sem GPU)",
+      "model_name": "Qwen2.5-32B-Instruct",
+      "model_quantization": "Q4_K_M",
+      "gpu_layers": 0,
+      "ctx_size": 2048,
+      "batch_size": 1,
+      "threads": 12,
+      "threads_batch": 8,
+      "expected_tokens_per_second": "3-6",
+      "vram_usage_gb": 0,
+      "ram_usage_gb": 20,
+      "flash_attn": false,
+      "main_gpu": 0,
+      "tensor_split": null
+    }
+  },
+  "models": {
+    "qwen3_30b_a3b_moe": {
+      "name": "Qwen3-30B-A3B-Instruct (MoE)",
+      "repo": "bartowski/Qwen3-30B-A3B-Instruct-GGUF",
+      "files": {
+        "Q3_K_M": "Qwen3-30B-A3B-Instruct-Q3_K_M.gguf",
+        "Q4_K_M": "Qwen3-30B-A3B-Instruct-Q4_K_M.gguf",
+        "Q5_K_M": "Qwen3-30B-A3B-Instruct-Q5_K_M.gguf",
+        "Q6_K": "Qwen3-30B-A3B-Instruct-Q6_K.gguf",
+        "Q8_0": "Qwen3-30B-A3B-Instruct-Q8_0.gguf"
+      },
+      "total_layers": 64,
+      "expert_layers": 3,
+      "recommended": "Q4_K_M",
+      "architecture": "MoE"
+    },
+    "qwen2.5_32b": {
+      "name": "Qwen2.5-32B-Instruct",
+      "repo": "bartowski/Qwen2.5-32B-Instruct-GGUF",
+      "files": {
+        "Q3_K_M": "Qwen2.5-32B-Instruct-Q3_K_M.gguf",
+        "Q4_K_M": "Qwen2.5-32B-Instruct-Q4_K_M.gguf",
+        "Q5_K_M": "Qwen2.5-32B-Instruct-Q5_K_M.gguf",
+        "Q6_K": "Qwen2.5-32B-Instruct-Q6_K.gguf",
+        "Q8_0": "Qwen2.5-32B-Instruct-Q8_0.gguf"
+      },
+      "total_layers": 64,
+      "recommended": "Q4_K_M",
+      "architecture": "Dense"
+    },
+    "qwen3_32b": {
+      "name": "Qwen3-32B-Instruct",
+      "repo": "bartowski/Qwen3-32B-Instruct-GGUF",
+      "files": {
+        "Q3_K_M": "Qwen3-32B-Instruct-Q3_K_M.gguf",
+        "Q4_K_M": "Qwen3-32B-Instruct-Q4_K_M.gguf",
+        "Q5_K_M": "Qwen3-32B-Instruct-Q5_K_M.gguf",
+        "Q6_K": "Qwen3-32B-Instruct-Q6_K.gguf",
+        "Q8_0": "Qwen3-32B-Instruct-Q8_0.gguf"
+      },
+      "total_layers": 64,
+      "recommended": "Q4_K_M",
+      "architecture": "Dense"
+    },
+    "qwen1.5_32b": {
+      "name": "Qwen-32B-Chat",
+      "repo": "TheBloke/Qwen-32B-Chat-GGUF",
+      "files": {
+        "Q3_K_M": "qwen-32b-chat.Q3_K_M.gguf",
+        "Q4_K_M": "qwen-32b-chat.Q4_K_M.gguf",
+        "Q5_K_M": "qwen-32b-chat.Q5_K_M.gguf",
+        "Q6_K": "qwen-32b-chat.Q6_K.gguf",
+        "Q8_0": "qwen-32b-chat.Q8_0.gguf"
+      },
+      "total_layers": 64,
+      "recommended": "Q4_K_M",
+      "architecture": "Dense"
+    }
+  },
+  "performance_tips": [
+    "Use Q4_K_M para melhor equilíbrio entre velocidade e qualidade",
+    "Aumente gpu_layers até atingir o limite da VRAM",
+    "Reduza ctx_size se estiver com problemas de memória",
+    "Mantenha batch_size=1 para menor uso de memória",
+    "Feche outros aplicativos usando a GPU",
+    "Monitore temperatura da GPU para evitar throttling",
+    "Modelos MoE (Qwen3-30B-A3B) são mais eficientes em hardware limitado",
+    "Para 21-24 tokens/s, use pelo menos 35 camadas na GPU (Dense) ou 40 (MoE)"
+  ]
+}
