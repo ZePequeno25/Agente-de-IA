@@ -1,0 +1,23 @@
+# Dependências para Qwen 2.5 32B com llama.cpp
+# Otimizado para GPUs com 8GB-10GB VRAM e 16GB RAM
+
+# llama.cpp Python bindings (inferência otimizada)
+llama-cpp-python>=0.2.90
+
+# Download de modelos do Hugging Face
+huggingface_hub>=0.23.0
+
+# Utilitários
+tqdm>=4.66.0
+numpy>=1.24.0
+
+# Monitoramento de GPU (opcional, requer NVIDIA)
+# pynvml>=11.5.0
+
+# Para CUDA support (instalar separadamente se tiver GPU NVIDIA)
+# torch -- instalar conforme sua GPU
+# Exemplo para CUDA 11.8:
+# pip install torch --index-url https://download.pytorch.org/whl/cu118
+
+# Para ROCm support (AMD GPUs)
+# pip install torch --index-url https://download.pytorch.org/whl/rocm6.0
