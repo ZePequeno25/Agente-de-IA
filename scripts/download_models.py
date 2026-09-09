@@ -2,9 +2,16 @@
 """
 Script para download de modelos Qwen GGUF do Hugging Face.
 
+Suporta:
+- Qwen3-30B-A3B (MoE)
+- Qwen2.5-32B (Dense)
+- Qwen3-32B (Dense)
+- Qwen-32B-Chat (Legacy)
+
 Uso:
+    python download_models.py qwen3_30b_a3b_moe Q4_K_M
     python download_models.py qwen2.5_32b Q4_K_M
-    python download_models.py qwen1.5_32b Q5_K_M
+    python download_models.py qwen3_32b Q5_K_M
     python download_models.py --list
 """
 

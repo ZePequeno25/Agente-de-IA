@@ -2,9 +2,16 @@
 """
 Script de benchmark para testar performance do modelo Qwen.
 
+Suporta:
+- Qwen3-30B-A3B (MoE)
+- Qwen2.5-32B (Dense)
+- Qwen3-32B (Dense)
+
 Uso:
-    python benchmark.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf
-    python benchmark.py --preset gpu_8gb_ram_16gb
+    python benchmark.py --model models/Qwen3-30B-A3B-Instruct-Q4_K_M.gguf --gpu-layers 40
+    python benchmark.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf --gpu-layers 35
+    python benchmark.py --preset gpu_8gb_ram_16gb_qwen3_moe
+    python benchmark.py --preset gpu_10gb_ram_16gb_dense
 """
 
 import argparse
@@ -85,14 +92,27 @@ def run_benchmark(llm: Llama, prompt: str, max_tokens: int = 128) -> Dict:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Benchmark de performance para Qwen 2.5 32B"
+        description="Benchmark de performance para Qwen3-30B-A3B e Qwen2.5/Qwen3 32B"
     )
     
     parser.add_argument("--model", "-m", type=str, required=True)
-    parser.add_argument("--preset", "-p", type=str, default=None)
-    parser.add_argument("--gpu-layers", "-gl", type=int, default=35)
-    parser.add_argument("--ctx-size", "-c", type=int, default=4096)
-    parser.add_argument("--threads", "-t", type=int, default=8)
+    parser.add_argument(
+        "--preset", "-p",
+        type=str,
+        choices=[
+            "gpu_8gb_ram_16gb_qwen3_moe",
+            "gpu_8gb_ram_16gb_dense",
+            "gpu_10gb_ram_16gb_qwen3_moe",
+            "gpu_10gb_ram_16gb_dense",
+            "gpu_10gb_high_quality",
+            "cpu_only"
+        ],
+        default=None,
+        help="Usar preset de configuração"
+    )
+    parser.add_argument("--gpu-layers", "-gl", type=int, default=None)
+    parser.add_argument("--ctx-size", "-c", type=int, default=None)
+    parser.add_argument("--threads", "-t", type=int, default=None)
     parser.add_argument("--max-tokens", type=int, default=128)
     parser.add_argument("--iterations", "-i", type=int, default=3)
     

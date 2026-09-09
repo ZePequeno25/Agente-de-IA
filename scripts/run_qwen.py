@@ -1,11 +1,21 @@
 #!/usr/bin/env python3
 """
-Script principal para rodar Qwen 2.5 32B com otimizações para hardware limitado.
+Script principal para rodar Qwen3-30B-A3B (MoE) e Qwen2.5/Qwen3 32B (Dense)
+com otimizações para hardware limitado.
+
 Suporta GPUs com 8GB-10GB VRAM e 16GB RAM.
+Meta de performance: 21-24 tokens/segundo
 
 Uso:
+    # Qwen3-30B-A3B (MoE) - GPU 8GB
+    python run_qwen.py --model models/Qwen3-30B-A3B-Instruct-Q4_K_M.gguf --gpu-layers 40
+    
+    # Qwen2.5-32B (Dense) - GPU 8GB
     python run_qwen.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf --gpu-layers 35
-    python run_qwen.py --preset gpu_8gb_ram_16gb
+    
+    # Usando preset
+    python run_qwen.py --preset gpu_8gb_ram_16gb_qwen3_moe
+    python run_qwen.py --preset gpu_10gb_ram_16gb_dense
 """
 
 import argparse
@@ -204,7 +214,14 @@ def main():
     parser.add_argument(
         "--preset", "-p",
         type=str,
-        choices=["gpu_8gb_ram_16gb", "gpu_10gb_ram_16gb", "gpu_10gb_high_quality", "cpu_only"],
+        choices=[
+            "gpu_8gb_ram_16gb_qwen3_moe",
+            "gpu_8gb_ram_16gb_dense",
+            "gpu_10gb_ram_16gb_qwen3_moe",
+            "gpu_10gb_ram_16gb_dense",
+            "gpu_10gb_high_quality",
+            "cpu_only"
+        ],
         help="Usar preset de configuração"
     )
     

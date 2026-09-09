@@ -1,4 +1,4 @@
-# Guia Rápido de Inicialização
+# Guia Rápido de Inicialização - Qwen3 e Qwen2.5
 
 ## 🚀 Começando em 5 Minutos
 
@@ -23,31 +23,40 @@ pip install -r requirements.txt
 # Listar modelos disponíveis
 python scripts/download_models.py --list
 
-# Baixar Qwen 2.5 32B com quantização Q4_K_M (recomendado para GPU 8GB)
+# Qwen3-30B-A3B (MoE) - RECOMENDADO para GPU 8GB-10GB
+python scripts/download_models.py qwen3_30b_a3b_moe Q4_K_M
+
+# Qwen2.5-32B (Dense) - Alternativa estável
 python scripts/download_models.py qwen2.5_32b Q4_K_M
 
-# Ou baixe para GPU 10GB com melhor qualidade
-python scripts/download_models.py qwen2.5_32b Q5_K_M
+# Qwen3-32B (Dense) - Última geração
+python scripts/download_models.py qwen3_32b Q5_K_M
 ```
 
 ### Passo 3: Executar
 
 ```bash
-# Usar preset para GPU 8GB
-python scripts/run_qwen.py --preset gpu_8gb_ram_16gb
+# Qwen3-30B-A3B (MoE) - GPU 8GB
+python scripts/run_qwen.py --preset gpu_8gb_ram_16gb_qwen3_moe
 
-# Ou usar preset para GPU 10GB
-python scripts/run_qwen.py --preset gpu_10gb_ram_16gb
+# Qwen3-30B-A3B (MoE) - GPU 10GB
+python scripts/run_qwen.py --preset gpu_10gb_ram_16gb_qwen3_moe
+
+# Qwen2.5/Qwen3 32B (Dense) - GPU 8GB
+python scripts/run_qwen.py --preset gpu_8gb_ram_16gb_dense
+
+# Qwen2.5/Qwen3 32B (Dense) - GPU 10GB
+python scripts/run_qwen.py --preset gpu_10gb_ram_16gb_dense
 
 # Ou especificar manualmente
-python scripts/run_qwen.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf --gpu-layers 35
+python scripts/run_qwen.py --model models/Qwen3-30B-A3B-Instruct-Q4_K_M.gguf --gpu-layers 40
 ```
 
 ### Passo 4: Testar Performance
 
 ```bash
 # Executar benchmark
-python scripts/benchmark.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf --preset gpu_8gb_ram_16gb
+python scripts/benchmark.py --model models/Qwen3-30B-A3B-Instruct-Q4_K_M.gguf --preset gpu_8gb_ram_16gb_qwen3_moe
 ```
 
 ---
@@ -56,7 +65,11 @@ python scripts/benchmark.py --model models/Qwen2.5-32B-Instruct-Q4_K_M.gguf --pr
 
 ### Chat Interativo
 ```bash
-python scripts/run_qwen.py --preset gpu_8gb_ram_16gb
+# Qwen3-30B-A3B (MoE) - Mais eficiente
+python scripts/run_qwen.py --preset gpu_8gb_ram_16gb_qwen3_moe
+
+# Qwen2.5-32B (Dense) - Alternativa
+python scripts/run_qwen.py --preset gpu_8gb_ram_16gb_dense
 ```
 
 ### Benchmark de Performance
@@ -69,7 +82,10 @@ python scripts/benchmark.py --model models/*.gguf --iterations 3
 # Listar disponíveis
 python scripts/download_models.py --list
 
-# Baixar específico
+# Baixar Qwen3-30B-A3B (MoE) - Recomendado
+python scripts/download_models.py qwen3_30b_a3b_moe Q4_K_M
+
+# Baixar Qwen2.5-32B (Dense)
 python scripts/download_models.py qwen2.5_32b Q4_K_M
 ```
 
@@ -77,12 +93,14 @@ python scripts/download_models.py qwen2.5_32b Q4_K_M
 
 ## ⚙️ Presets Disponíveis
 
-| Preset | GPU Layers | Quantização | Tokens/s Esperado |
-|--------|-----------|-------------|-------------------|
-| `gpu_8gb_ram_16gb` | 35 | Q4_K_M | 21-24 |
-| `gpu_10gb_ram_16gb` | 45 | Q5_K_M | 21-24 |
-| `gpu_10gb_high_quality` | 40 | Q6_K | 20-23 |
-| `cpu_only` | 0 | Q4_K_M | 3-6 |
+| Preset | Modelo | GPU Layers | Quantização | Tokens/s Esperado |
+|--------|--------|-----------|-------------|-------------------|
+| `gpu_8gb_ram_16gb_qwen3_moe` | Qwen3-30B-A3B | 40 | Q4_K_M | 22-26 |
+| `gpu_8gb_ram_16gb_dense` | Qwen2.5/Qwen3 32B | 35 | Q4_K_M | 21-24 |
+| `gpu_10gb_ram_16gb_qwen3_moe` | Qwen3-30B-A3B | 50 | Q5_K_M | 24-28 |
+| `gpu_10gb_ram_16gb_dense` | Qwen2.5/Qwen3 32B | 45 | Q5_K_M | 21-24 |
+| `gpu_10gb_high_quality` | Qwen2.5-32B | 40 | Q6_K | 20-23 |
+| `cpu_only` | Qwen2.5-32B | 0 | Q4_K_M | 3-6 |
 
 ---
 
@@ -91,7 +109,7 @@ python scripts/download_models.py qwen2.5_32b Q4_K_M
 ### Se estiver usando menos VRAM que o disponível:
 ```bash
 # Aumente gpu_layers
-python scripts/run_qwen.py --model modelo.gguf --gpu-layers 45
+python scripts/run_qwen.py --model modelo.gguf --gpu-layers 50
 ```
 
 ### Se estiver faltando memória:
@@ -100,11 +118,11 @@ python scripts/run_qwen.py --model modelo.gguf --gpu-layers 45
 python scripts/run_qwen.py --model modelo.gguf --gpu-layers 25 --ctx-size 2048
 ```
 
-### Para máxima velocidade:
+### Para máxima velocidade (MoE):
 ```bash
-# Use Q3_K_M e mais gpu layers
-python scripts/download_models.py qwen2.5_32b Q3_K_M
-python scripts/run_qwen.py --model models/*Q3_K_M.gguf --gpu-layers 50
+# Qwen3-30B-A3B com Q4_K_M e mais gpu layers
+python scripts/download_models.py qwen3_30b_a3b_moe Q4_K_M
+python scripts/run_qwen.py --model models/*Q4_K_M.gguf --gpu-layers 50
 ```
 
 ---
@@ -117,8 +135,8 @@ python scripts/run_qwen.py --model models/*Q3_K_M.gguf --gpu-layers 50
 - Diminua `--ctx-size`
 
 ### Performance abaixo de 21 tokens/s
-- Aumente `--gpu-layers`
-- Verifique se a GPU está sendo usada
+- Aumente `--gpu-layers` (40+ para MoE, 35+ para Dense)
+- Verifique se a GPU está sendo usada (`nvidia-smi`)
 - Feche outros programas usando GPU
 
 ### Modelo não carrega
